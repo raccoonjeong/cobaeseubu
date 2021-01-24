@@ -27,6 +27,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 }
 
 test {
