@@ -6,6 +6,7 @@ import org.raccoon.board.entity.Reply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -17,20 +18,20 @@ public class ReplyRepositoryTest {
     @Autowired
     private ReplyRepository replyRepository;
 
-    @Test
-    public void insertReply() {
-        IntStream.rangeClosed(1, 300).forEach(i -> {
-            long bno = (long)(Math.random() * 100) + 1;
-            Board board = Board.builder().bno(bno).build();
-            Reply reply = Reply.builder()
-                    .text("Reply......." + i)
-                    .board(board)
-                    .replyer("guest")
-                    .build();
-
-            replyRepository.save(reply);
-        });
-    }
+//    @Test
+//    public void insertReply() {
+//        IntStream.rangeClosed(1, 300).forEach(i -> {
+//            long bno = (long)(Math.random() * 100) + 1;
+//            Board board = Board.builder().bno(bno).build();
+//            Reply reply = Reply.builder()
+//                    .text("Reply......." + i)
+//                    .board(board)
+//                    .replyer("guest")
+//                    .build();
+//
+//            replyRepository.save(reply);
+//        });
+//    }
 
     @Test
     public void readReply1() {
@@ -40,6 +41,14 @@ public class ReplyRepositoryTest {
 
         System.out.println(reply);
         System.out.println(reply.getBoard());
+    }
+
+    @Test
+    public void testListByBoard() {
+        List<Reply> replyList = replyRepository.getRepliesByBoardOrderByRno(
+                Board.builder().bno(97L).build()
+        );
+        replyList.forEach(reply -> System.out.println(reply));
     }
 
 }

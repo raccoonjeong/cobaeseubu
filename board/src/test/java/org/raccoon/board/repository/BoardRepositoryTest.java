@@ -5,6 +5,7 @@ import org.raccoon.board.dto.BoardDTO;
 import org.raccoon.board.dto.PageRequestDTO;
 import org.raccoon.board.entity.Board;
 import org.raccoon.board.entity.Member;
+import org.raccoon.board.repository.search.SearchBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -29,15 +30,15 @@ public class BoardRepositoryTest {
 
     @Test
     public void insertBoard() {
-        IntStream.rangeClosed(1,100).forEach(i -> {
-            Member member = Member.builder().email("user" + i + "@aaa.com").build();
-            Board board = Board.builder()
-                    .title("Title..." + i)
-                    .content("Content..." + i)
-                    .writer(member)
-                    .build();
-            boardRepository.save(board);
-        });
+//        IntStream.rangeClosed(1,100).forEach(i -> {
+//            Member member = Member.builder().email("user" + i + "@aaa.com").build();
+//            Board board = Board.builder()
+//                    .title("Title..." + i)
+//                    .content("Content..." + i)
+//                    .writer(member)
+//                    .build();
+//            boardRepository.save(board);
+//        });
     }
 
     @Transactional
@@ -85,4 +86,19 @@ public class BoardRepositoryTest {
         System.out.println(Arrays.toString(arr));
     }
 
+    @Test
+    public void testSearch1() {
+        boardRepository.search1();
+    }
+
+    @Test
+    public void testSearch111() {
+        // searchBoardRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+    }
 }
