@@ -1,25 +1,16 @@
 package com.raccoon.mreview.entity;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@Embeddable
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@ToString(exclude = "movie")
-public class MovieImage extends BaseEntity{
+@ToString(exclude = "movie") //연관 관계시 항상 주의
+public class MovieImage  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +22,8 @@ public class MovieImage extends BaseEntity{
 
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //무조건 lazy로
     private Movie movie;
+
 
 }
